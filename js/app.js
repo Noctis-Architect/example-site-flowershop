@@ -1,6 +1,6 @@
 /**
- * NATIVE FLOWER COMPANY — APPLICATION LOGIC
- * High-performance, zero-dependency vanilla JS engine for GitHub Pages
+ * FLOWER STUDIO — APPLICATION LOGIC
+ * High-performance, zero-dependency vanilla JS engine
  */
 
 (function () {
@@ -17,10 +17,10 @@
   };
 
   // Local storage cart key
-  const CART_STORAGE_KEY = 'nfc_botanical_cart_v1';
+  const CART_STORAGE_KEY = 'flower_studio_cart_v2';
 
-  // Salt Lake Valley ZIP Codes for same-day delivery
-  const SLC_SAME_DAY_ZIPS = new Set([
+  // Local Delivery ZIP Codes for same-day delivery
+  const SAME_DAY_ZIPS = new Set([
     '84101', '84102', '84103', '84104', '84105', '84106', '84107', '84108',
     '84109', '84111', '84112', '84113', '84115', '84116', '84117', '84118',
     '84119', '84120', '84121', '84123', '84124', '84044', '84047', '84070',
@@ -96,6 +96,7 @@
     renderProducts();
     setupEventListeners();
     setupStickyHeader();
+    setupScrollReveal();
     updateCartUI();
   }
 
@@ -149,13 +150,12 @@
       return;
     }
 
-    elements.productsGrid.innerHTML = filtered.map(product => {
+    elements.productsGrid.innerHTML = filtered.map((product, idx) => {
       const primaryImg = product.images[0] || 'assets/images/hero-banner.jpg';
       const secondaryImg = product.images[1] || primaryImg;
-      const stemsShort = product.stems.slice(0, 3).join(' • ');
 
       return `
-        <article class="product-card" data-id="${product.id}">
+        <article class="product-card reveal-on-scroll" data-id="${product.id}" style="transition-delay: ${Math.min(idx * 0.06, 0.36)}s">
           <div class="product-media">
             <img class="product-img img-primary" src="${primaryImg}" alt="${product.title}" loading="lazy" />
             <img class="product-img img-secondary" src="${secondaryImg}" alt="${product.title} alternative view" loading="lazy" />
@@ -171,7 +171,9 @@
             <div class="product-meta-row">
               <span class="product-stems-preview">${product.categoryLabel}</span>
               <div class="product-stars">
-                <span>★</span>
+                <svg class="icon-star-inline" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                </svg>
                 <span class="rating-num">${product.rating} (${product.reviewsCount})</span>
               </div>
             </div>
@@ -180,7 +182,7 @@
 
             <div class="product-price-row">
               <span class="price-current">$${product.price.toFixed(2)}</span>
-              <span class="price-tier-hint">Standard • Upgrades available</span>
+              <span class="price-tier-hint">Standard • Sizes available</span>
             </div>
 
             <div class="product-actions-row">
@@ -192,6 +194,42 @@
         </article>
       `;
     }).join('');
+
+    // Trigger reveal observer for newly rendered cards
+    observeScrollElements(elements.productsGrid.querySelectorAll('.reveal-on-scroll'));
+  }
+
+  // --- SCROLL REVEAL OBSERVER ---
+  let scrollObserver = null;
+
+  function setupScrollReveal() {
+    if ('IntersectionObserver' in window) {
+      scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            scrollObserver.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      observeScrollElements(document.querySelectorAll('.reveal-on-scroll'));
+    } else {
+      // Fallback: show everything immediately
+      document.querySelectorAll('.reveal-on-scroll').forEach(el => el.classList.add('is-visible'));
+    }
+  }
+
+  function observeScrollElements(nodeList) {
+    if (!scrollObserver) return;
+    nodeList.forEach(node => {
+      if (!node.classList.contains('is-visible')) {
+        scrollObserver.observe(node);
+      }
+    });
   }
 
   // --- QUICK VIEW MODAL ---
@@ -209,7 +247,7 @@
     
     // Render stems tag cloud
     elements.modalStemsList.innerHTML = product.stems.map(stem => `
-      <span style="display: inline-block; background: var(--color-bg-sage); color: var(--color-primary); font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.65rem; border-radius: var(--radius-full); margin: 0 0.25rem 0.25rem 0;">
+      <span class="stem-chip">
         ${stem}
       </span>
     `).join('');
@@ -228,7 +266,7 @@
     // Tier buttons update
     updateModalTierPricing();
 
-    // Show modal
+    // Show modal with animation
     elements.quickViewModal.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -271,6 +309,15 @@
   }
 
   // --- CART OPERATIONS ---
+  function triggerBadgeAnimation() {
+    elements.cartCountBadges.forEach(badge => {
+      badge.classList.remove('popping');
+      void badge.offsetWidth; // Force reflow
+      badge.classList.add('popping');
+      setTimeout(() => badge.classList.remove('popping'), 400);
+    });
+  }
+
   function addToCart(productId, tier = 'standard', cardMessage = '') {
     const product = PRODUCTS_DATA.find(p => p.id === productId);
     if (!product) return;
@@ -279,10 +326,10 @@
     let tierLabel = 'Standard Arrangement';
     if (tier === 'deluxe') {
       price = product.deluxePrice;
-      tierLabel = 'Deluxe (25% More Blooms)';
+      tierLabel = 'Deluxe (25% More Stems)';
     } else if (tier === 'premium') {
       price = product.premiumPrice;
-      tierLabel = 'Premium Masterpiece Urn';
+      tierLabel = 'Premium Statement Piece';
     }
 
     const cartItemId = `${productId}-${tier}`;
@@ -309,7 +356,8 @@
 
     saveCartToStorage();
     updateCartUI();
-    showToast(`Added "${product.title}" (${tier}) to your cart 💐`);
+    triggerBadgeAnimation();
+    showToast(`Added "${product.title}" (${tier}) to your cart`);
     openCartDrawer();
   }
 
@@ -324,19 +372,21 @@
 
     saveCartToStorage();
     updateCartUI();
+    triggerBadgeAnimation();
   }
 
   function removeItemFromCart(cartItemId) {
     state.cart = state.cart.filter(item => item.cartItemId !== cartItemId);
     saveCartToStorage();
     updateCartUI();
+    triggerBadgeAnimation();
     showToast('Item removed from cart');
   }
 
   function updateCartUI() {
     const totalItems = state.cart.reduce((sum, item) => sum + item.quantity, 0);
     const subtotal = state.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const tax = subtotal * 0.0775; // Utah Sales Tax
+    const tax = subtotal * 0.0775;
     const total = subtotal + tax;
 
     // Update count badges
@@ -357,10 +407,10 @@
 
     if (elements.shippingRemainingText) {
       if (subtotal >= threshold) {
-        elements.shippingRemainingText.innerHTML = '🎉 <strong>Congratulations!</strong> You qualify for FREE Salt Lake City delivery!';
+        elements.shippingRemainingText.innerHTML = '<strong>Congratulations!</strong> You qualify for FREE local delivery!';
       } else {
         const remaining = threshold - subtotal;
-        elements.shippingRemainingText.innerHTML = `Add <strong>$${remaining.toFixed(2)}</strong> more for FREE Salt Lake delivery!`;
+        elements.shippingRemainingText.innerHTML = `Add <strong>$${remaining.toFixed(2)}</strong> more for FREE local delivery`;
       }
     }
 
@@ -370,10 +420,14 @@
     if (state.cart.length === 0) {
       elements.cartItemsContainer.innerHTML = `
         <div class="cart-empty-state">
-          <div class="cart-empty-icon">🌿</div>
+          <div class="cart-empty-icon">
+            <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+          </div>
           <h4 class="cart-empty-title">Your Cart is Empty</h4>
-          <p class="cart-empty-desc">Discover our fresh, sustainable floral arrangements sourced directly from American grower fields.</p>
-          <button class="btn btn-primary btn-sm js-close-cart" type="button">Start Shopping</button>
+          <p class="cart-empty-desc">Explore our seasonal bouquets and daily arrangements crafted with fresh regional stems.</p>
+          <button class="btn btn-primary btn-sm js-close-cart" type="button">Shop Today's Flowers</button>
         </div>
       `;
       if (elements.btnCheckout) elements.btnCheckout.disabled = true;
@@ -421,25 +475,35 @@
     const rawVal = elements.zipInput.value.trim();
     if (!rawVal) {
       elements.zipStatusMsg.className = 'zip-status-msg error';
-      elements.zipStatusMsg.innerHTML = '⚠️ Please enter a 5-digit US ZIP code.';
+      elements.zipStatusMsg.innerHTML = 'Please enter a 5-digit US ZIP code.';
       return;
     }
 
     const zip5 = rawVal.substring(0, 5);
 
-    if (SLC_SAME_DAY_ZIPS.has(zip5)) {
+    if (SAME_DAY_ZIPS.has(zip5)) {
       elements.zipStatusMsg.className = 'zip-status-msg success';
       elements.zipStatusMsg.innerHTML = `
-        <strong>✓ Same-Day Local Delivery Available for ${zip5}!</strong><br>
-        Order by 1:00 PM MT for courier delivery directly to doors across Salt Lake City.
+        <div class="zip-status-content">
+          <svg class="icon-inline" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <div>
+            <strong>Same-Day Local Delivery Available for ${zip5}</strong><br>
+            Order before 1:00 PM for afternoon courier hand-delivery directly to the doorstep.
+          </div>
+        </div>
       `;
       state.deliveryZip = zip5;
-      showToast(`ZIP ${zip5} verified for Same-Day Delivery! 🚚`);
+      showToast(`ZIP ${zip5} verified for same-day delivery`);
     } else {
       elements.zipStatusMsg.className = 'zip-status-msg success';
       elements.zipStatusMsg.innerHTML = `
-        <strong>✓ Priority Delivery Available for ${zip5}!</strong><br>
-        We ship stem-hydration packs nationwide via FedEx Priority Morning Delivery (1-2 business days).
+        <div class="zip-status-content">
+          <svg class="icon-inline" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <div>
+            <strong>Priority Overnight Delivery Available for ${zip5}</strong><br>
+            Hydrated stem packs shipped via priority morning courier (1-2 business days).
+          </div>
+        </div>
       `;
       state.deliveryZip = zip5;
     }
@@ -451,7 +515,12 @@
 
     const toast = document.createElement('div');
     toast.className = 'toast-msg';
-    toast.innerHTML = `<span>💐</span> <span>${message}</span>`;
+    toast.innerHTML = `
+      <span class="toast-icon">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </span>
+      <span class="toast-text">${message}</span>
+    `;
     elements.toastContainer.appendChild(toast);
 
     // Trigger animation
@@ -509,6 +578,15 @@
         const addBtn = e.target.closest('.js-direct-add');
         if (addBtn) {
           addToCart(addBtn.dataset.id, 'standard');
+          
+          // Micro-interaction button state
+          const origText = addBtn.innerHTML;
+          addBtn.innerHTML = `<svg class="icon-inline" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Added`;
+          addBtn.classList.add('btn-added');
+          setTimeout(() => {
+            addBtn.innerHTML = origText;
+            addBtn.classList.remove('btn-added');
+          }, 1200);
           return;
         }
       });
@@ -624,7 +702,6 @@
       if (qBtn) {
         qBtn.addEventListener('click', () => {
           const isActive = item.classList.contains('active');
-          // Close all other items
           elements.faqItems.forEach(other => other.classList.remove('active'));
           if (!isActive) {
             item.classList.add('active');
@@ -651,7 +728,7 @@
         e.preventDefault();
         const input = elements.newsletterForm.querySelector('input[type="email"]');
         if (input && input.value) {
-          showToast(`Welcome to Bloom Society! Use code BLOOM10 for 10% off ✨`);
+          showToast(`Welcome! Use code BLOOM10 for 10% off your order.`);
           input.value = '';
         }
       });
@@ -680,7 +757,7 @@
         e.preventDefault();
         elements.weddingModal.classList.remove('open');
         document.body.style.overflow = '';
-        showToast('Consultation request received! Steph will contact you within 24 hours 💐');
+        showToast('Consultation request received! Our floral designer will contact you within 24 hours.');
         elements.weddingForm.reset();
       });
     }
@@ -690,7 +767,6 @@
       elements.btnCheckout.addEventListener('click', () => {
         if (state.cart.length === 0) return;
 
-        // Generate receipt
         const orderNumber = Math.floor(100000 + Math.random() * 900000);
         const subtotal = state.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
         const tax = subtotal * 0.0775;
@@ -704,7 +780,7 @@
                 <span>Date: ${new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
               </div>
               <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 1rem;">
-                Estimated Hand-Delivery: Tomorrow between 1:00 PM – 5:00 PM MT
+                Estimated Courier Delivery: Tomorrow between 1:00 PM – 5:00 PM
               </p>
               <div style="border-top: 1px solid var(--color-border); padding-top: 0.75rem;">
                 ${state.cart.map(i => `

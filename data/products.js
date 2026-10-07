@@ -1,6 +1,6 @@
 /**
- * Native Flower Company - Product Catalog Data
- * Sourced authentically from nativeflowercompany.com (Salt Lake City, Utah)
+ * Flower Studio - Product Catalog Data
+ * Realistic boutique florist inventory
  */
 const PRODUCTS_DATA = [
   {
@@ -19,8 +19,8 @@ const PRODUCTS_DATA = [
       "assets/images/prod-birthday-2.jpg",
       "assets/images/prod-birthday-1.jpg"
     ],
-    stems: ["Utah Honey Dahlias", "Toffee Garden Roses", "Peach Ranunculus", "Autumn Eucalyptus", "Chocolate Cosmos"],
-    description: "An exuberant, golden-hour celebration arrangement. Bursting with locally grown Utah honey dahlias, heirloom garden roses, and warm autumn foliage, arranged in a handcrafted matte ceramic vase.",
+    stems: ["Honey Dahlias", "Toffee Garden Roses", "Peach Ranunculus", "Autumn Eucalyptus", "Chocolate Cosmos"],
+    description: "A seasonal arrangement featuring honey dahlias, toffee garden roses, and peach ranunculus arranged in a matte ceramic vase.",
     dimensions: 'Approx. 14" W x 16" H',
     careTips: "Trim stems at a 45-degree angle every 2 days and refresh with cold water."
   },
@@ -41,9 +41,9 @@ const PRODUCTS_DATA = [
       "assets/images/prod-purpose-1.jpg"
     ],
     stems: ["Terracotta Roses", "Burgundy Scabiosa", "Preserved Desert Grasses", "Goldenrod", "Seed Eucalyptus"],
-    description: "10% of every arrangement purchase is donated directly to Wasatch Community Gardens in Salt Lake City. A harmonious study in rich earth tones, wine-red scabiosa, and dried wild textures.",
+    description: "A warm earth-toned arrangement of terracotta roses, burgundy scabiosa, and dried wild grasses. 10% of proceeds support local community gardens.",
     dimensions: 'Approx. 15" W x 17" H',
-    careTips: "Keep away from direct HVAC vents and bright direct afternoon sunlight."
+    careTips: "Keep away from heating vents and direct hot afternoon sunlight."
   },
   {
     id: "i-will-always-love-you",
@@ -54,17 +54,17 @@ const PRODUCTS_DATA = [
     premiumPrice: 220.00,
     category: ["all", "romance"],
     categoryLabel: "Luxury Romance",
-    badge: "Artisan Luxury",
+    badge: "Studio Signature",
     rating: 5.0,
     reviewsCount: 64,
     images: [
       "assets/images/prod-love-2.jpg",
       "assets/images/prod-love-1.jpg"
     ],
-    stems: ["Blush Ecuadorian Garden Roses", "Double Lisianthus", "Sweet Fragrant Jasmine Vine", "Astilbe", "Silver Dollar Eucalyptus"],
-    description: "An unforgettable romantic statement piece. Velvety layers of soft blush garden roses, billowy lisianthus, and delicate trailing greens composed in an elevated glass pedestal urn.",
+    stems: ["Blush Garden Roses", "Double Lisianthus", "Jasmine Vine", "Astilbe", "Silver Dollar Eucalyptus"],
+    description: "Layers of blush garden roses, double lisianthus, and fragrant greens arranged in an elevated glass compote urn.",
     dimensions: 'Approx. 18" W x 20" H',
-    careTips: "Add floral food packet included upon arrival for maximum 7-10 day bloom longevity."
+    careTips: "Add the included nutrient packet on day one for maximum bloom longevity."
   },
   {
     id: "rainbowland",
@@ -83,9 +83,9 @@ const PRODUCTS_DATA = [
       "assets/images/prod-rainbow-1.jpg"
     ],
     stems: ["Coral Charm Peonies", "Cobalt Delphinium", "Sunburst Marigolds", "Lilac Snapdragons", "Blue Thistle"],
-    description: "Joyful, vivid, and full of creative vitality. RainbowLand combines expressive contrasts of coral, saturated sky blues, sunny yellows, and deep amethyst blooms designed to electrify any interior.",
+    description: "A colorful centerpiece featuring coral peonies, delphinium, and summer marigolds arranged in a white ceramic vase.",
     dimensions: 'Approx. 19" W x 22" H',
-    careTips: "Top off vase water daily as large blooms drink up to 2 cups of water per day."
+    careTips: "Check water levels daily as peonies and delphinium drink rapidly."
   },
   {
     id: "shine",
@@ -103,10 +103,10 @@ const PRODUCTS_DATA = [
       "assets/images/prod-shine-2.jpg",
       "assets/images/prod-shine-1.jpg"
     ],
-    stems: ["High-Desert Sunflowers", "Buttercup Spray Roses", "Chamomile Daisies", "Hypericum Berries", "Lemon Leaf"],
-    description: "Channeling the serene warmth of high-desert sunshine across Utah's valleys. Rich buttery petals, dancing chamomile blossoms, and rustic botanical greens in a fluted ceramic urn.",
+    stems: ["Sunflowers", "Buttercup Spray Roses", "Chamomile Daisies", "Hypericum Berries", "Lemon Leaf"],
+    description: "Sunflowers paired with buttercup spray roses, chamomile, and fresh foliage in a fluted ceramic urn.",
     dimensions: 'Approx. 16" W x 18" H',
-    careTips: "Remove any fallen foliage from the water line to prevent bacterial cloudiness."
+    careTips: "Remove any leaves below the water line to keep vase water clear."
   },
   {
     id: "rockin-years",
@@ -116,7 +116,7 @@ const PRODUCTS_DATA = [
     deluxePrice: 175.00,
     premiumPrice: 225.00,
     category: ["all", "romance", "seasonal"],
-    categoryLabel: "Moody Romance",
+    categoryLabel: "Autumn Romance",
     badge: "Designer Pick",
     rating: 5.0,
     reviewsCount: 33,
@@ -124,10 +124,10 @@ const PRODUCTS_DATA = [
       "assets/images/prod-rockin-2.jpg",
       "assets/images/prod-rockin-1.jpg"
     ],
-    stems: ["Antique Mauve Roses", "Wine Dahlia Blooms", "Copper Beech Foliage", "Black Scabiosa", "Cascading Pepperberry"],
-    description: "Cinematic, moody, and deeply evocative. Rockin' Years showcases dramatic autumnal depths of burgundy, smoked plum, and antique mauve, styled for dinner tables, anniversaries, or intimate celebrations.",
+    stems: ["Antique Mauve Roses", "Wine Dahlia Blooms", "Copper Beech Foliage", "Black Scabiosa", "Pepperberry"],
+    description: "Autumnal table arrangement featuring antique mauve roses, dark wine dahlias, and copper foliage in a low stone vessel.",
     dimensions: 'Approx. 17" W x 19" H',
-    careTips: "Keep in a cool room overnight to prolong the delicate dahlia petal life."
+    careTips: "Keep in a cool room overnight to prolong dahlia petal life."
   },
   {
     id: "farm-fresh-vase",
@@ -146,9 +146,9 @@ const PRODUCTS_DATA = [
       "assets/images/prod-vase-1.jpg"
     ],
     stems: ["Fresh Market Stems", "Seasonal Fillers", "Fragrant Herbs", "Textured Greens", "Garden Roses"],
-    description: "Our signature everyday arrangement. Designed fresh each morning with the best grower cuts from regional American flower farms. Arranged directly in a recyclable glass cylinder.",
+    description: "Our signature daily arrangement built with the morning's freshest grower stems in a clear cylinder vase.",
     dimensions: 'Approx. 15" W x 16" H',
-    careTips: "Place in a cool spot away from ripening fruit (which emits ethylene gas)."
+    careTips: "Keep away from ripening fruit to prevent early petal aging."
   },
   {
     id: "local-farm-bundle",
@@ -167,9 +167,9 @@ const PRODUCTS_DATA = [
       "assets/images/prod-bundle-1.jpg"
     ],
     stems: ["Mixed Seasonal Stems", "Greens", "Hardy Botanicals"],
-    description: "For the DIY flower enthusiast. A generous armful of premium grower stems, stripped and cleaned, hand-wrapped in recycled brown kraft paper and tied with natural jute twine.",
+    description: "A generous loose wrap of seasonal grower stems hand-tied in brown kraft paper, stripped and ready for your own vases.",
     dimensions: 'Approx. 18" stem length',
-    careTips: "Give stems a fresh diagonal cut under running water before arranging in your vase."
+    careTips: "Trim stems under running water before placing in your vase."
   },
   {
     id: "assorted-dahlia-wrap",
@@ -180,7 +180,7 @@ const PRODUCTS_DATA = [
     premiumPrice: 150.00,
     category: ["all", "seasonal", "under80"],
     categoryLabel: "Farm Special",
-    badge: "Limited Harvest",
+    badge: "Seasonal Harvest",
     rating: 5.0,
     reviewsCount: 57,
     images: [
@@ -188,9 +188,9 @@ const PRODUCTS_DATA = [
       "assets/images/prod-dahlia-1.jpg"
     ],
     stems: ["12-14 Dinnerplate & Ball Dahlias", "Fresh Mint & Bay Laurel foliage"],
-    description: "Cut daily from our partner dahlia fields in northern Utah. A dreamy kaleidoscope of ball, decorative, and dinnerplate varieties in sunset hues of peach, blush, amber, and fuchsia.",
+    description: "A hand-tied bunch of fresh-cut dinnerplate and ball dahlias in mixed seasonal colors, wrapped in paper with garden foliage.",
     dimensions: 'Approx. 12 stems, 16" length',
-    careTips: "Dahlias are thirsty! Change water completely every 24-48 hours."
+    careTips: "Dahlias drink heavily. Change the water completely every 1-2 days."
   },
   {
     id: "designers-choice",
@@ -200,7 +200,7 @@ const PRODUCTS_DATA = [
     deluxePrice: 90.00,
     premiumPrice: 125.00,
     category: ["all", "under80", "vases"],
-    categoryLabel: "Custom Florist Art",
+    categoryLabel: "Custom Arrangement",
     badge: "Most Popular",
     rating: 5.0,
     reviewsCount: 142,
@@ -208,10 +208,10 @@ const PRODUCTS_DATA = [
       "assets/images/prod-designers-1.jpg",
       "assets/images/prod-birthday-2.jpg"
     ],
-    stems: ["Lead Florist's Curated Daily Palette"],
-    description: "Give our master florists creative freedom! We select the absolute freshest, most exceptional seasonal stems arriving at the studio each morning to handcraft a unique botanical masterpiece.",
+    stems: ["Florist-Selected Daily Palette"],
+    description: "Allow our florists to hand-select the finest morning blooms to create a custom arrangement in your chosen size.",
     dimensions: 'Custom scaled to selected tier',
-    careTips: "Enjoy the natural beauty! Each Designer's Choice comes with our 7-day guarantee."
+    careTips: "Includes our 7-day freshness guarantee and care card."
   }
 ];
 

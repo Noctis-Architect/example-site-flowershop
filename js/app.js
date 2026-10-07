@@ -558,23 +558,22 @@
       });
     });
 
-    // Catalog Search
+    // Catalog Search with Debounce for Performance
+    let searchDebounceTimer = null;
     if (elements.catalogSearch) {
       elements.catalogSearch.addEventListener('input', (e) => {
-        state.searchQuery = e.target.value;
-        renderProducts();
+        clearTimeout(searchDebounceTimer);
+        searchDebounceTimer = setTimeout(() => {
+          state.searchQuery = e.target.value;
+          renderProducts();
+        }, 120);
       });
     }
 
-    // Delegate grid events: Quick View & Direct Add
+    // Delegate grid events: Quick View, Card Tap & Direct Add
     if (elements.productsGrid) {
       elements.productsGrid.addEventListener('click', (e) => {
-        const quickBtn = e.target.closest('.js-quick-view');
-        if (quickBtn) {
-          openQuickView(quickBtn.dataset.id);
-          return;
-        }
-
+        // Direct Add button takes priority
         const addBtn = e.target.closest('.js-direct-add');
         if (addBtn) {
           addToCart(addBtn.dataset.id, 'standard');
@@ -587,6 +586,21 @@
             addBtn.innerHTML = origText;
             addBtn.classList.remove('btn-added');
           }, 1200);
+          return;
+        }
+
+        // Quick View: button click, media tap, or title tap (ideal for mobile touchscreens)
+        const quickBtn = e.target.closest('.js-quick-view');
+        if (quickBtn) {
+          openQuickView(quickBtn.dataset.id);
+          return;
+        }
+
+        const productMedia = e.target.closest('.product-media');
+        const productTitle = e.target.closest('.product-title');
+        const productCard = e.target.closest('.product-card');
+        if ((productMedia || productTitle) && productCard) {
+          openQuickView(productCard.dataset.id);
           return;
         }
       });

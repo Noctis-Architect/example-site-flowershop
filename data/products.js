@@ -16,8 +16,8 @@ const PRODUCTS_DATA = [
     rating: 4.9,
     reviewsCount: 52,
     images: [
-      "assets/images/prod-birthday-2.jpg",
-      "assets/images/prod-birthday-1.jpg"
+      "assets/images/prod-birthday-2.webp",
+      "assets/images/prod-birthday-1.webp"
     ],
     stems: ["Honey Dahlias", "Toffee Garden Roses", "Peach Ranunculus", "Autumn Eucalyptus", "Chocolate Cosmos"],
     description: "A seasonal arrangement featuring honey dahlias, toffee garden roses, and peach ranunculus arranged in a matte ceramic vase.",
@@ -37,8 +37,8 @@ const PRODUCTS_DATA = [
     rating: 5.0,
     reviewsCount: 38,
     images: [
-      "assets/images/prod-purpose-2.jpg",
-      "assets/images/prod-purpose-1.jpg"
+      "assets/images/prod-purpose-2.webp",
+      "assets/images/prod-purpose-1.webp"
     ],
     stems: ["Terracotta Roses", "Burgundy Scabiosa", "Preserved Desert Grasses", "Goldenrod", "Seed Eucalyptus"],
     description: "A warm earth-toned arrangement of terracotta roses, burgundy scabiosa, and dried wild grasses. 10% of proceeds support local community gardens.",
@@ -58,8 +58,8 @@ const PRODUCTS_DATA = [
     rating: 5.0,
     reviewsCount: 64,
     images: [
-      "assets/images/prod-love-2.jpg",
-      "assets/images/prod-love-1.jpg"
+      "assets/images/prod-love-2.webp",
+      "assets/images/prod-love-1.webp"
     ],
     stems: ["Blush Garden Roses", "Double Lisianthus", "Jasmine Vine", "Astilbe", "Silver Dollar Eucalyptus"],
     description: "Layers of blush garden roses, double lisianthus, and fragrant greens arranged in an elevated glass compote urn.",
@@ -79,8 +79,8 @@ const PRODUCTS_DATA = [
     rating: 4.8,
     reviewsCount: 29,
     images: [
-      "assets/images/prod-rainbow-2.jpg",
-      "assets/images/prod-rainbow-1.jpg"
+      "assets/images/prod-rainbow-2.webp",
+      "assets/images/prod-rainbow-1.webp"
     ],
     stems: ["Coral Charm Peonies", "Cobalt Delphinium", "Sunburst Marigolds", "Lilac Snapdragons", "Blue Thistle"],
     description: "A colorful centerpiece featuring coral peonies, delphinium, and summer marigolds arranged in a white ceramic vase.",
@@ -100,8 +100,8 @@ const PRODUCTS_DATA = [
     rating: 4.9,
     reviewsCount: 41,
     images: [
-      "assets/images/prod-shine-2.jpg",
-      "assets/images/prod-shine-1.jpg"
+      "assets/images/prod-shine-2.webp",
+      "assets/images/prod-shine-1.webp"
     ],
     stems: ["Sunflowers", "Buttercup Spray Roses", "Chamomile Daisies", "Hypericum Berries", "Lemon Leaf"],
     description: "Sunflowers paired with buttercup spray roses, chamomile, and fresh foliage in a fluted ceramic urn.",
@@ -121,8 +121,8 @@ const PRODUCTS_DATA = [
     rating: 5.0,
     reviewsCount: 33,
     images: [
-      "assets/images/prod-rockin-2.jpg",
-      "assets/images/prod-rockin-1.jpg"
+      "assets/images/prod-rockin-2.webp",
+      "assets/images/prod-rockin-1.webp"
     ],
     stems: ["Antique Mauve Roses", "Wine Dahlia Blooms", "Copper Beech Foliage", "Black Scabiosa", "Pepperberry"],
     description: "Autumnal table arrangement featuring antique mauve roses, dark wine dahlias, and copper foliage in a low stone vessel.",
@@ -142,8 +142,8 @@ const PRODUCTS_DATA = [
     rating: 4.9,
     reviewsCount: 78,
     images: [
-      "assets/images/prod-vase-2.jpg",
-      "assets/images/prod-vase-1.jpg"
+      "assets/images/prod-vase-2.webp",
+      "assets/images/prod-vase-1.webp"
     ],
     stems: ["Fresh Market Stems", "Seasonal Fillers", "Fragrant Herbs", "Textured Greens", "Garden Roses"],
     description: "Our signature daily arrangement built with the morning's freshest grower stems in a clear cylinder vase.",
@@ -163,8 +163,8 @@ const PRODUCTS_DATA = [
     rating: 4.8,
     reviewsCount: 46,
     images: [
-      "assets/images/prod-bundle-2.jpg",
-      "assets/images/prod-bundle-1.jpg"
+      "assets/images/prod-bundle-2.webp",
+      "assets/images/prod-bundle-1.webp"
     ],
     stems: ["Mixed Seasonal Stems", "Greens", "Hardy Botanicals"],
     description: "A generous loose wrap of seasonal grower stems hand-tied in brown kraft paper, stripped and ready for your own vases.",
@@ -184,8 +184,8 @@ const PRODUCTS_DATA = [
     rating: 5.0,
     reviewsCount: 57,
     images: [
-      "assets/images/prod-dahlia-2.jpg",
-      "assets/images/prod-dahlia-1.jpg"
+      "assets/images/prod-dahlia-2.webp",
+      "assets/images/prod-dahlia-1.webp"
     ],
     stems: ["12-14 Dinnerplate & Ball Dahlias", "Fresh Mint & Bay Laurel foliage"],
     description: "A hand-tied bunch of fresh-cut dinnerplate and ball dahlias in mixed seasonal colors, wrapped in paper with garden foliage.",
@@ -205,8 +205,8 @@ const PRODUCTS_DATA = [
     rating: 5.0,
     reviewsCount: 142,
     images: [
-      "assets/images/prod-designers-1.jpg",
-      "assets/images/prod-birthday-2.jpg"
+      "assets/images/prod-designers-1.webp",
+      "assets/images/prod-birthday-2.webp"
     ],
     stems: ["Florist-Selected Daily Palette"],
     description: "Allow our florists to hand-select the finest morning blooms to create a custom arrangement in your chosen size.",

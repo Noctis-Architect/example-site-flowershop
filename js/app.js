@@ -151,14 +151,14 @@
     }
 
     elements.productsGrid.innerHTML = filtered.map((product, idx) => {
-      const primaryImg = product.images[0] || 'assets/images/hero-banner.jpg';
+      const primaryImg = product.images[0] || 'assets/images/hero-banner.webp';
       const secondaryImg = product.images[1] || primaryImg;
 
       return `
         <article class="product-card reveal-on-scroll" data-id="${product.id}" style="transition-delay: ${Math.min(idx * 0.06, 0.36)}s">
           <div class="product-media">
-            <img class="product-img img-primary" src="${primaryImg}" alt="${product.title}" loading="lazy" />
-            <img class="product-img img-secondary" src="${secondaryImg}" alt="${product.title} alternative view" loading="lazy" />
+            <img class="product-img img-primary" src="${primaryImg}" alt="${product.title}" loading="lazy" decoding="async" width="400" height="400" />
+            <img class="product-img img-secondary" data-src="${secondaryImg}" alt="${product.title} alternative view" loading="lazy" decoding="async" width="400" height="400" />
             
             ${product.badge ? `<span class="product-badge-pill ${product.badge === '10% Donated' ? 'accent' : ''}">${product.badge}</span>` : ''}
             
@@ -255,7 +255,7 @@
     // Images
     elements.modalMainImg.src = product.images[0];
     elements.modalThumbsRow.innerHTML = product.images.map((img, idx) => `
-      <img class="modal-thumb ${idx === 0 ? 'active' : ''}" src="${img}" alt="Thumbnail ${idx + 1}" data-src="${img}" />
+      <img class="modal-thumb ${idx === 0 ? 'active' : ''}" src="${img}" alt="Thumbnail ${idx + 1}" data-src="${img}" loading="lazy" decoding="async" width="56" height="56" />
     `).join('');
 
     // Reset card message input
@@ -438,7 +438,7 @@
 
     elements.cartItemsContainer.innerHTML = state.cart.map(item => `
       <div class="cart-item-row" data-cart-id="${item.cartItemId}">
-        <img class="cart-item-thumb" src="${item.image}" alt="${item.title}" />
+        <img class="cart-item-thumb" src="${item.image}" alt="${item.title}" loading="lazy" decoding="async" width="70" height="70" />
         <div class="cart-item-details">
           <h4 class="cart-item-title">${item.title}</h4>
           <div class="cart-item-tier">${item.tierLabel}</div>
@@ -604,6 +604,16 @@
           return;
         }
       });
+
+      // Lazy load secondary image on-demand on desktop hover (saves 100% bandwidth on mobile)
+      elements.productsGrid.addEventListener('mouseover', (e) => {
+        const card = e.target.closest('.product-card');
+        if (!card) return;
+        const secImg = card.querySelector('.img-secondary[data-src]');
+        if (secImg && !secImg.getAttribute('src')) {
+          secImg.setAttribute('src', secImg.getAttribute('data-src'));
+        }
+      }, { passive: true });
     }
 
     // Modal Events

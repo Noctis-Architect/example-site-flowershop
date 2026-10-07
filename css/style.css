@@ -1213,14 +1213,18 @@ h1, h2, h3, h4, h5, h6 {
 
 .product-img.img-secondary {
   opacity: 0;
+  pointer-events: none;
+}
+
+.product-img.img-secondary:not([src]) {
+  display: none;
 }
 
 .product-card:hover .product-img.img-primary {
-  opacity: 0;
   transform: scale(1.05);
 }
 
-.product-card:hover .product-img.img-secondary {
+.product-card:hover .product-img.img-secondary[src] {
   opacity: 1;
   transform: scale(1.05);
 }
